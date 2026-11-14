@@ -56,5 +56,14 @@
   const finalNote=[...main.querySelectorAll('.note')].at(-1);
   if(finalNote) finalNote.innerHTML='<b>Estimativas:</b> valores em reais para atrações e hospedagem, sujeitos a alteração e disponibilidade. Confirme preços, horários e regras nos sites oficiais antes de reservar.';
   const subtitle=document.createElement('p');subtitle.textContent='Sete países · agosto de 2027 · ideias, favoritos e estimativas em um só lugar';header.append(subtitle);
+  const countdown=document.createElement('div');countdown.className='countdown';countdown.setAttribute('aria-live','polite');countdown.innerHTML='<span class="countdown-label">Contagem regressiva para 13 de agosto de 2027</span><span class="countdown-value"></span>';header.append(countdown);
+  const countdownValue=countdown.querySelector('.countdown-value');
+  function updateCountdown(){
+    const now=new Date(), target=new Date(2027,7,13), remaining=Math.max(0,target-now);
+    if(remaining===0){countdownValue.textContent='Chegou o grande dia!';return;}
+    const days=Math.floor(remaining/86400000), hours=Math.floor(remaining%86400000/3600000), minutes=Math.floor(remaining%3600000/60000), seconds=Math.floor(remaining%60000/1000);
+    countdownValue.textContent=`${days} dias · ${String(hours).padStart(2,'0')}h ${String(minutes).padStart(2,'0')}m ${String(seconds).padStart(2,'0')}s`;
+  }
+  updateCountdown();setInterval(updateCountdown,1000);
   const footer=document.createElement('footer');footer.textContent='Planejamento Europa 2027 · Valores e informações podem mudar até a viagem.';main.append(footer);
 })();
